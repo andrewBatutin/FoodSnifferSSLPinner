@@ -13,10 +13,10 @@
 		00D42CEF20EBB87200147AF0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00D42CEE20EBB87200147AF0 /* Assets.xcassets */; };
 		00D42CF220EBB87200147AF0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00D42CF020EBB87200147AF0 /* LaunchScreen.storyboard */; };
 		00D42CFC20EBBC7000147AF0 /* FoodListAPIConsumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D42CFB20EBBC7000147AF0 /* FoodListAPIConsumer.swift */; };
-		00D42CFF20EBDC0800147AF0 /* Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D42CFE20EBDC0800147AF0 /* Extentions.swift */; };
+		00D42CFF20EBDC0800147AF0 /* DataProcessingExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D42CFE20EBDC0800147AF0 /* DataProcessingExtentions.swift */; };
 		00DD128D2111E4E60055C72B /* dropboxcom.crt in Resources */ = {isa = PBXBuildFile; fileRef = 00DD128C2111E4E60055C72B /* dropboxcom.crt */; };
 		00DD128F2111E9230055C72B /* Frameworks in Resources */ = {isa = PBXBuildFile; fileRef = 00DD128E2111E9230055C72B /* Frameworks */; };
-		00DD12952111E9630055C72B /* Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D42CFE20EBDC0800147AF0 /* Extentions.swift */; };
+		00DD12952111E9630055C72B /* DataProcessingExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D42CFE20EBDC0800147AF0 /* DataProcessingExtentions.swift */; };
 		00DD12962111E9630055C72B /* FoodListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D42CE920EBB87100147AF0 /* FoodListViewController.swift */; };
 		00DD12972111E9630055C72B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D42CE720EBB87100147AF0 /* AppDelegate.swift */; };
 		00DD12982111E9630055C72B /* FoodListAPIConsumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D42CFB20EBBC7000147AF0 /* FoodListAPIConsumer.swift */; };
@@ -37,7 +37,7 @@
 		00D42CF120EBB87200147AF0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		00D42CF320EBB87200147AF0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00D42CFB20EBBC7000147AF0 /* FoodListAPIConsumer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodListAPIConsumer.swift; sourceTree = "<group>"; };
-		00D42CFE20EBDC0800147AF0 /* Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extentions.swift; sourceTree = "<group>"; };
+		00D42CFE20EBDC0800147AF0 /* DataProcessingExtentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProcessingExtentions.swift; sourceTree = "<group>"; };
 		00DD128C2111E4E60055C72B /* dropboxcom.crt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dropboxcom.crt; sourceTree = "<group>"; };
 		00DD128E2111E9230055C72B /* Frameworks */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Frameworks; sourceTree = SOURCE_ROOT; };
 		00DD12912111E9430055C72B /* FridaGadget.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = FridaGadget.dylib; path = Frameworks/FridaGadget.dylib; sourceTree = "<group>"; };
@@ -119,7 +119,7 @@
 		00D42CFD20EBDBF200147AF0 /* Extentions */ = {
 			isa = PBXGroup;
 			children = (
-				00D42CFE20EBDC0800147AF0 /* Extentions.swift */,
+				00D42CFE20EBDC0800147AF0 /* DataProcessingExtentions.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -243,7 +243,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00D42CFF20EBDC0800147AF0 /* Extentions.swift in Sources */,
+				00D42CFF20EBDC0800147AF0 /* DataProcessingExtentions.swift in Sources */,
 				00D42CEA20EBB87100147AF0 /* FoodListViewController.swift in Sources */,
 				00D42CE820EBB87100147AF0 /* AppDelegate.swift in Sources */,
 				00D42CFC20EBBC7000147AF0 /* FoodListAPIConsumer.swift in Sources */,
@@ -254,7 +254,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00DD12952111E9630055C72B /* Extentions.swift in Sources */,
+				00DD12952111E9630055C72B /* DataProcessingExtentions.swift in Sources */,
 				00DD12962111E9630055C72B /* FoodListViewController.swift in Sources */,
 				00DD12972111E9630055C72B /* AppDelegate.swift in Sources */,
 				00DD12982111E9630055C72B /* FoodListAPIConsumer.swift in Sources */,

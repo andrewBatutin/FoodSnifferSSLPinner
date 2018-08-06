@@ -9,6 +9,11 @@
 import Foundation
 import Security
 
+enum DataResult{
+    case Empty(Error)
+    case Full([FoodItem])
+}
+
 enum DaySegments:String,Codable{
     
     case morning
@@ -36,7 +41,7 @@ final class FoodListAPIConsumer : NSObject, URLSessionDelegate{
     let foodListURL = "https://www.dropbox.com/s/8ipgua5mfiakhxy/MockFoodListJSON.json?dl=1"
     
     
-    func loadFoodList(_ callback: @escaping ( [FoodItem]? ) -> ()){
+    func loadFoodList(_ callback: @escaping ( DataResult ) -> ()){
         
         guard let foodUrl = URL(string: foodListURL) else { return }
         let session = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
@@ -45,14 +50,14 @@ final class FoodListAPIConsumer : NSObject, URLSessionDelegate{
             if let networkError = error {
                 print(networkError.localizedDescription)
                 DispatchQueue.main.async {
-                    callback(nil)
+                    callback(DataResult.Empty(networkError))
                 }
                 return
             }
             
             guard let foodData = data else {
                 DispatchQueue.main.async {
-                    callback(nil)
+                    callback(DataResult.Full([]))
                 }
                 return
             }
@@ -61,19 +66,18 @@ final class FoodListAPIConsumer : NSObject, URLSessionDelegate{
             do{
                 let items = try decoder.decode([FoodItem].self, from: foodData)
                 DispatchQueue.main.async {
-                    callback(items)
+                    callback(DataResult.Full(items))
                 }
             }catch{
                 print(error)
                 DispatchQueue.main.async {
-                    callback(nil)
+                    callback(DataResult.Empty(error))
                 }
                 return
             }
             
         }
         dataTask.resume()
-        
     }
     
 }
