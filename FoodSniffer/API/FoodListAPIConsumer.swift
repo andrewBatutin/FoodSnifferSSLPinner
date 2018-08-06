@@ -33,9 +33,13 @@ struct FoodItem:Codable {
 final class FoodListAPIConsumer : NSObject, URLSessionDelegate{
     
     let certificates: [Data] = {
-        let url = Bundle.main.url(forResource: "dropboxcom", withExtension: "crt")!
-        let data = try! Data(contentsOf: url)
-        return [data]
+        let certList = ["dropboxcom", "dldropboxusercontentcom"]
+        let result = certList.map({ (certName) -> Data in
+            let url = Bundle.main.url(forResource: certName, withExtension: "crt")!
+            let certData =  try! Data(contentsOf: url)
+            return certData
+        })
+        return result
     }()
     
     let foodListURL = "https://www.dropbox.com/s/8ipgua5mfiakhxy/MockFoodListJSON.json?dl=1"
@@ -86,17 +90,33 @@ final class FoodListAPIConsumer : NSObject, URLSessionDelegate{
 extension FoodListAPIConsumer {
     
     func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-        if let trust = challenge.protectionSpace.serverTrust, SecTrustGetCertificateCount(trust) > 0 {
-            
-            if let certificate = SecTrustGetCertificateAtIndex(trust, 0) {
-                let data = SecCertificateCopyData(certificate) as Data
-                if certificates.contains(data) {
-                    completionHandler(.useCredential, URLCredential(trust: trust))
-                    return
+        
+        guard let trust = challenge.protectionSpace.serverTrust else {
+            completionHandler(.cancelAuthenticationChallenge, nil)
+            return
+        }
+        
+        let credential = URLCredential(trust: trust)
+        
+        if (validateTrustCertificateList(trust)) {
+            completionHandler(.useCredential, credential)
+        } else {
+            completionHandler(.cancelAuthenticationChallenge, nil)
+        }
+    }
+    
+    func validateTrustCertificateList(_ trust:SecTrust) -> Bool{
+        
+        for index in 0..<SecTrustGetCertificateCount(trust) {
+            if let certificate = SecTrustGetCertificateAtIndex(trust, index){
+                let serverCertificateData = SecCertificateCopyData(certificate) as Data
+                if ( certificates.contains(serverCertificateData) ){
+                    return true
                 }
             }
         }
-        completionHandler(.rejectProtectionSpace, nil)
+        
+        return false
     }
 }
 
