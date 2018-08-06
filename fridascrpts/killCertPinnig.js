@@ -7,6 +7,10 @@
 	****************************************
 	
 	Usage:
+
+		0. Use 
+			$ frida-trace -R -f re.frida.Gadget -s "*validateTrust*"
+			to get the correct function name for ValidateTrustCertificateList_prt variable (line 29)
 		
 		1. Run FoodSniffer on the simulator
 		
