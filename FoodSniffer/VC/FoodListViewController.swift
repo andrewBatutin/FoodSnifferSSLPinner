@@ -27,12 +27,27 @@ class FoodListViewController: UIViewController {
     @objc func refreshData(_ sender:Any){
         
         apiConsumer.loadFoodList { (food) in
-            if let items = food{
+            
+            switch food{
+            case .Empty(let error):
+                self.showErrorMessage(error)
+            case .Full(let items):
                 self.foodItems = self.filter(foodItems: items, by: Date())
                 self.foodList.reloadData()
+                self.foodList.refreshControl?.endRefreshing()
             }
-            self.foodList.refreshControl?.endRefreshing()
+            
         }
+    }
+    
+    func showErrorMessage(_ error:Error){
+        
+        let alert = UIAlertController(title: "No Food Items Were Found", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        self.present(alert, animated: true, completion: {
+            self.foodList.refreshControl?.endRefreshing()
+        })
+        
     }
 
 }
