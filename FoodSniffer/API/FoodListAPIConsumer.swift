@@ -86,17 +86,30 @@ final class FoodListAPIConsumer : NSObject, URLSessionDelegate{
 extension FoodListAPIConsumer {
     
     func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-        if let trust = challenge.protectionSpace.serverTrust, SecTrustGetCertificateCount(trust) > 0 {
-            
-            if let certificate = SecTrustGetCertificateAtIndex(trust, 0) {
-                let data = SecCertificateCopyData(certificate) as Data
-                if certificates.contains(data) {
-                    completionHandler(.useCredential, URLCredential(trust: trust))
-                    return
-                }
-            }
+        
+        print("being challanged! for \(challenge.protectionSpace.host)")
+        
+        guard let trust = challenge.protectionSpace.serverTrust else {
+            print("invalid trust!")
+            completionHandler(.cancelAuthenticationChallenge, nil)
+            return
         }
-        completionHandler(.rejectProtectionSpace, nil)
+        
+        
+        let credential = URLCredential(trust: trust)
+        
+        
+        if (validateTrustPublicKeys(trust)) {
+            completionHandler(.useCredential, credential)
+            
+        } else {
+            print("couldn't validate trust for \(challenge.protectionSpace.host)")
+            completionHandler(.cancelAuthenticationChallenge, nil)
+        }
+    }
+    
+    func validateTrustPublicKeys(_ trust:SecTrust) -> Bool{
+        return false
     }
 }
 
