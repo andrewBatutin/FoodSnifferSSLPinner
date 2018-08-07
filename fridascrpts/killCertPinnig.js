@@ -9,7 +9,7 @@
 	Usage:
 
 		0. Use 
-			$ frida-trace -R -f re.frida.Gadget -s "*validateTrust*"
+			$ frida-trace -R -f re.frida.Gadget -i "*validateTrust*"
 			to get the correct function name for ValidateTrustCertificateList_prt variable (line 29)
 		
 		1. Run FoodSniffer on the simulator
@@ -25,15 +25,15 @@
 DEBUG = true;
 
 function main() {
-	
+	// 1
 	var ValidateTrustCertificateList_prt = Module.findExportByName(null, "_T016FoodSnifferFrida0A15ListAPIConsumerC024validateTrustCertificateD0SbSo03SecG0CF");
 	if (ValidateTrustCertificateList_prt == null) {
 		console.log("[!] FoodSniffer!validateTrustCertificateList(...) not found!");
 		return;
 	}
-
+	// 2
 	var ValidateTrustCertificateList = new NativeFunction(ValidateTrustCertificateList_prt, "int", ["pointer"]);
-
+	// 3
 	Interceptor.replace(ValidateTrustCertificateList_prt, new NativeCallback(function(trust) {
 		
 		if (DEBUG) console.log("[*] ValidateTrustCertificateList(...) hit!");
